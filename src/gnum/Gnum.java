@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -130,6 +133,7 @@ public class Gnum extends Application {
         // loop the actions while less than 100 games
         if (board < BOARD_MAX) {
             // set guessBtnAction to guessBtn
+            guessBtn.setDefaultButton(true);
             guessBtn.setOnAction(e -> {
                 try {
                     guessBtnAction();
@@ -137,11 +141,12 @@ public class Gnum extends Application {
                     Logger.getLogger(Gnum.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
+
             // set restartBtnAction to restartBtn
             restartBtn.setOnAction(e -> {
                 restartBtnAction();
             });
-            // set playAgnAction to playAgnBtn
+            // set playAgnAction to playAgnBtn            
             playAgnBtn.setOnAction(e -> playAgnBtnAction());
         }
 
@@ -161,8 +166,8 @@ public class Gnum extends Application {
      */
     public void guessBtnAction() {
 
-        if (inputTf.getText().isEmpty() || inputTf.getText() instanceof String) {
-            // when player enters either nothing or String
+        if (inputTf.getText().isEmpty()) {
+            // when player enters nothing
             line4.setTextFill(Color.
                     color(Math.random(), Math.random(), Math.random()));
         } else {
@@ -189,20 +194,25 @@ public class Gnum extends Application {
                         gameEndText();   // show the number
                         hintBox.getChildren().set(1, picWon); // show picture                   
                         guessBtn.setDisable(true);  // disable guessBtn
+                        //playAgnBtn.setDefaultButton(true);
                     } else if (guess < theNumber) {
                         lostTry();   // decrease tryLeft
+                        inputTf.clear(); // clear the guess text field
                         if (tryLeft == 0) {  // when tryLeft is 0
                             bestGuess(); // record best guess
                             gameEndText();   // show the number
                             guessBtn.setDisable(true);  // disable guessBtn
+                            //playAgnBtn.setDefaultButton(true);
                         }
                         hintBox.getChildren().set(1, picHigh); // show picture
                     } else if (guess > theNumber) {
                         lostTry();   // decrease tryLeft
+                        inputTf.clear(); // clear the guess text field
                         if (tryLeft == 0) {  // when tryLeft is 0
                             bestGuess(); // record best guess
                             gameEndText();   // show the number
                             guessBtn.setDisable(true);  // disable guessBtn
+                            //playAgnBtn.setDefaultButton(true);
                         }
                         hintBox.getChildren().set(1, picLow); // show picture
                     }
@@ -248,6 +258,8 @@ public class Gnum extends Application {
      */
     public void playAgnBtnAction() {
         RestartAndPlayAgnActions();
+        //playAgnBtn.setDefaultButton(false);
+        //guessBtn.setDefaultButton(true);
         game++;     // change to a new game, still have the current game's stat
     }
 
@@ -311,7 +323,7 @@ public class Gnum extends Application {
      */
     public boolean isValidNumber(int number) {
         // check if guess is out of [1,1000]
-        if (number < 1 || number > 1000) {
+        if (number < 1 && number > 1000) {
             return false;
         }
         return true;

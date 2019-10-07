@@ -1,0 +1,19 @@
+
+Board1 Game1: The number was 988
+Guess1: 4
+Guess2: 4
+Guess3: 4
+Guess4: 4
+Guess5: 4
+Guess6: 4
+Guess7: 4
+Guess8: 4
+Guess9: 4
+Guess10: 4
+
+Board1 Game2: The number was 253
+Guess1: 4
+Guess2: 4
+Guess3: 4
+Guess4: 4
+Guess5: 4
