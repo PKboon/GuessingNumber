@@ -1,5 +1,5 @@
-# GuessingNumber
-Let's guess the correct number which in the range of [1,1000]
+# Guessing Number Game
+### Let's guess the correct number which in the range of [1,1000]
 
 This program is written by Pikulkaew Boonpeng for Java Programming class by Professor Miller, E at BunkerHill Community College.
 
@@ -12,3 +12,37 @@ This program is written by Pikulkaew Boonpeng for Java Programming class by Prof
 * Implements a Play again option - does NOT wipe out current game best score.
 * Implements Best Guess statistic - the less, the better.
 * Implement error handling for guess out of the range.
+
+
+
+#### When you win!
+
+![Screen Shot 2019-12-25 at 3 21 42 PM](https://user-images.githubusercontent.com/51871643/71450340-58cc8a00-272e-11ea-98e5-d721b3aad0ca.png)
+
+
+
+
+#### Show an arrow to hint.
+
+![Screen Shot 2019-12-25 at 3 22 17 PM](https://user-images.githubusercontent.com/51871643/71450341-58cc8a00-272e-11ea-925c-6ee0c28fdf00.png)
+
+
+
+
+#### When you lose. The best guess stays the same.
+
+![Screen Shot 2019-12-25 at 3 22 54 PM](https://user-images.githubusercontent.com/51871643/71450342-58cc8a00-272e-11ea-9307-e4535ca0acc7.png)
+
+
+
+
+#### When you enter letters.
+
+![Screen Shot 2019-12-25 at 3 23 43 PM](https://user-images.githubusercontent.com/51871643/71450344-58cc8a00-272e-11ea-94d8-5667c21bd8e9.png)
+
+
+
+
+#### When you break the record. The smaller number will be recorded.
+
+![Screen Shot 2019-12-25 at 3 24 15 PM](https://user-images.githubusercontent.com/51871643/71450345-58cc8a00-272e-11ea-861e-b14d7850b5f9.png)
