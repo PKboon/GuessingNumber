@@ -1,18 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This program is written by Pikulkaew Boonpeng for Java Programming class by
+ * Professor Miller, E at BunkerHill Community College.
  */
-package gnum;
+package guessing_number;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,8 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -31,35 +25,35 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
- * Guessing Number Game
+ * Guessing Number Game:
  *
- * Create a random number between 1 and 1000. Display images to tell the user
- * that the number is lower, hight, or correct. Print history to the screen.
+ * Creates a random number between 1 and 1000. Displays images to tell the user
+ * that the number is lower, hight, or correct. Prints history to the screen.
  * Write the random number, and all the guesses to a file. If the user doesn't
- * guess in 10 turns, display the number. Implement a Restart option - should
- * wipe out current game best score. Implement a Play again option - does not
- * wipe out current game best score. Implement Best Guess statistic - the less,
- * the better. Implement error handling for guess out of the range.
+ * guess in 10 turns, display the number. Implements a Restart option - wipes
+ * out current game best score. Implements a Play again option - does NOT wipe
+ * out current game best score. Implement Best Guess statistic - the less, the
+ * better. Implement error handling for guess out of the range.
  *
  * @author Pikulkaew Boonpeng
- * @version 19/04/2019
+ * @version 25/12/2019 Added isNumber method.
  * @since 14/04/2019
  */
-public class Gnum extends Application {
+public class GuessingNumber extends Application {
 
     // generate random number from 1-1000
     int theNumber = (int) (Math.random() * 1000 + 1);
 
-    private int space = 10; // for easy setting space
-    private VBox gameField = new VBox(space); // for easy center stuff
+    private final int SPACE = 10; // for easy setting space
+    private VBox gameField = new VBox(SPACE); // for easy center stuff
 
-    // line1: tells what game it is
+    // line1: welcomes to the game
     private Label line1 = new Label("    Welcome to Guess the Number Game");
 
-    // line2: announce stat
+    // line2: announces stat
     private HBox line2 = new HBox();
     private int countGuess = 0;
-    private int newBest = 11; // because it cannot be more than 10
+    private int newBest = 11; // for comparing, because it cannot be more than 10
     private Label bestGuessLbl = new Label("   Best Guess: ");
     private Label bestGuessValue = new Label();
 
@@ -77,7 +71,7 @@ public class Gnum extends Application {
     int guess;
 
     // line6: all the button
-    private HBox line6 = new HBox(space);
+    private HBox line6 = new HBox(SPACE);
     private Button guessBtn = new Button("   Guess   ");
     private Button restartBtn = new Button("   Restart   ");
     private Button playAgnBtn = new Button("Play Again");
@@ -85,32 +79,31 @@ public class Gnum extends Application {
     // for gameEndText()
     private Label key = new Label(" ");
 
-    // hintBox contends picture and history
-    private HBox hintBox = new HBox(space * 10);
-    // picture part
+    // hintBox contends picture and historyory
+    private HBox hintBox = new HBox(SPACE * 10);
+    // picture section
     private Label picture = new Label("");
     private ImageView picWon = new ImageView(new Image("https://www.nicepng.com/png/full/485-4854233_you-win-art.png"));
     private Image picArrow = new Image("http://pixelartmaker.com/art/0fc29bffe9ca6e5.png");
     private ImageView picLow = new ImageView(picArrow);
     private ImageView picHigh = new ImageView(picArrow);
-    // history part
-    private VBox histBox = new VBox(space / 2);
-    Label histHead = new Label("\t  History: ");
-    Label hist1 = new Label("");
-    Label hist2 = new Label("");
-    Label hist3 = new Label("");
-    Label hist4 = new Label("");
-    Label hist5 = new Label("");
-    Label hist6 = new Label("");
-    Label hist7 = new Label("");
-    Label hist8 = new Label("");
-    Label hist9 = new Label("");
-    Label hist10 = new Label("");
+    // historyory section
+    private VBox historyBox = new VBox(SPACE / 2);
+    Label historyHead = new Label("\t  History: ");
+    Label history1 = new Label("");
+    Label history2 = new Label("");
+    Label history3 = new Label("");
+    Label history4 = new Label("");
+    Label history5 = new Label("");
+    Label history6 = new Label("");
+    Label history7 = new Label("");
+    Label history8 = new Label("");
+    Label history9 = new Label("");
+    Label history10 = new Label("");
 
-    // For file stuff and history
-    // java.io.File file = new java.io.File("record.txt");
-    private final int ANS_MAX = 10;     // max amount of guess
-    private final int GAME_MAX = 100;   // max amount of playAgnBtn
+    // For file stuff and historyory
+    private final int ANS_MAX = 10;    // max amount of guess
+    private final int GAME_MAX = 100;  // max amount of playAgnBtn
     private final int BOARD_MAX = 500; // max amount of restartBtn
     int ans;
     int game = 0;
@@ -118,16 +111,16 @@ public class Gnum extends Application {
     private int[][][] recordArr = new int[BOARD_MAX][GAME_MAX][ANS_MAX];
 
     /**
-     * For game started
+     * Contains settings method, buttons actions, and clearFile method.
      *
-     * @param primaryStage
-     * @throws Exception
+     * @param primaryStage A window for the game.
+     * @throws java.io.IOException
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws IOException {
 
         settings(); // call setting to the screen
-        Pane boardPane = new Pane();    // pane for game
+        Pane boardPane = new Pane(); // pane for the game
         boardPane.getChildren().add(gameField); // put gameField to this pane
 
         // loop the actions while less than 100 games
@@ -135,11 +128,7 @@ public class Gnum extends Application {
             // set guessBtnAction to guessBtn
             guessBtn.setDefaultButton(true);
             guessBtn.setOnAction(e -> {
-                try {
-                    guessBtnAction();
-                } catch (Exception ex) {
-                    Logger.getLogger(Gnum.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                guessBtnAction();
             });
 
             // set restartBtnAction to restartBtn
@@ -150,7 +139,7 @@ public class Gnum extends Application {
             playAgnBtn.setOnAction(e -> playAgnBtnAction());
         }
 
-        clearFile(); // clear file when game is open again
+        clearFile(); // clear file when game is open again. Needs IOException.
 
         Scene scene = new Scene(boardPane, 600, 640);
         primaryStage.setResizable(false); // cannot resize the window
@@ -160,25 +149,24 @@ public class Gnum extends Application {
     }
 
     /**
-     * Actions for guess button
-     *
-     * @throws Exception
+     * Actions for guess button.
      */
     public void guessBtnAction() {
 
-        if (inputTf.getText().isEmpty()) {
-            // when player enters nothing
+        // when player enters nothing OR letter(s)
+        if (inputTf.getText().isEmpty() || !isNumber(inputTf.getText())) {
+            // changes color of line4 to tell the user
             line4.setTextFill(Color.
                     color(Math.random(), Math.random(), Math.random()));
         } else {
-            // get number from player
+            // get number from player. Changes String to Integer
             guess = Integer.parseInt(inputTf.getText());
 
             if (isValidNumber(guess)) { // check if the number is valid
                 ans++;  // for recordArr
                 recordArr[board][game][ans - 1] = guess; // put guess in recordArr
                 toFile();   // put guess to file
-                toHistScreen(board, game);  // show history
+                toHistoryScreen(board, game);  // show historyory
 
                 // reset range line color when player get the number in [1,1000] 
                 line4.setTextFill(Color.BLUEVIOLET);
@@ -194,7 +182,7 @@ public class Gnum extends Application {
                         gameEndText();   // show the number
                         hintBox.getChildren().set(1, picWon); // show picture                   
                         guessBtn.setDisable(true);  // disable guessBtn
-                        //playAgnBtn.setDefaultButton(true);
+                        lostTry();   // decrease tryLeft
                     } else if (guess < theNumber) {
                         lostTry();   // decrease tryLeft
                         inputTf.clear(); // clear the guess text field
@@ -226,10 +214,9 @@ public class Gnum extends Application {
     }
 
     /**
-     * Actions for BOTH restart and play again buttons
-     *
+     * Actions for BOTH restart and play again buttons.
      */
-    public void RestartAndPlayAgnActions() {
+    public void restartAndPlayAgnActions() {
         guessBtn.setDisable(false);     // enable guessBtn
         theNumber = (int) (Math.random() * 1000 + 1); // generate new number
         tryLeft = 10;       // set tryLeft to the max
@@ -237,16 +224,16 @@ public class Gnum extends Application {
         countGuess = 0;     // set guess counter to the beginning
         inputTf.setText("");// empty text field
         key.setText("  ");  // empty answer line         
-        clearHistScreen();    // clear history
+        clearHistoryScreen();    // clear historyory
         hintBox.getChildren().set(1, new Label(""));    // set no pictures
         ans = 0;    // reset to the first ans
     }
 
     /**
-     * Actions for restart button
+     * Actions for restart button. Wipes out current game best score.
      */
     public void restartBtnAction() {
-        RestartAndPlayAgnActions();
+        restartAndPlayAgnActions();
         bestGuessValue.setText("");
         newBest = 11;       // reset stat 
         game = 0;   // reset to the first game
@@ -254,17 +241,15 @@ public class Gnum extends Application {
     }
 
     /**
-     * Actions for play again button
+     * Actions for play again button. Does NOT wipe out current game best score.
      */
     public void playAgnBtnAction() {
-        RestartAndPlayAgnActions();
-        //playAgnBtn.setDefaultButton(false);
-        //guessBtn.setDefaultButton(true);
+        restartAndPlayAgnActions();
         game++;     // change to a new game, still have the current game's stat
     }
 
     /**
-     * Shows the number when the game ended
+     * Shows the number when the game ended.
      */
     public void gameEndText() {
         // tells if player could make it and display theNumber
@@ -276,20 +261,16 @@ public class Gnum extends Application {
     }
 
     /**
-     * Check if guess matches theNumber
+     * Checks if guess matches theNumber.
      *
-     * @return true if matches
+     * @return true if matches.
      */
     public boolean isMatch() {
-        if (guess == theNumber) {
-            return true;
-        } else {
-            return false;
-        }
+        return (guess == theNumber);
     }
 
     /**
-     * Decreases tryLeft every missed guess
+     * Decreases tryLeft every missed guess.
      */
     public void lostTry() {
         tryLeft--;
@@ -297,7 +278,7 @@ public class Gnum extends Application {
     }
 
     /**
-     * Find best score
+     * Finds best score.
      */
     public void bestGuess() {
         if (newBest > countGuess) { // if counter less than newBest
@@ -309,29 +290,42 @@ public class Gnum extends Application {
             } else {
                 bestGuessValue.setText(Integer.toString(newBest));
             }
-        } else if (newBest <= countGuess) {
+        } else {
             // show newBest if counter is more than newBest
             bestGuessValue.setText(Integer.toString(newBest));
         }
     }
 
     /**
-     * Checks if the number enter is in the range of [1,1000]
+     * Checks if the number enter is in the range of [1,1000].
      *
-     * @param number The guess that the user input
-     * @return true if the number is in the range
+     * @param number The guess that the user input.
+     * @return true if the number is in the range.
      */
     public boolean isValidNumber(int number) {
-        // check if guess is out of [1,1000]
-        if (number < 1 && number > 1000) {
-            return false;
+        return (number >= 1 && number <= 1000);
+    }
+
+    /**
+     * Checks if a number is entered.
+     *
+     * @param text The text that the user input.
+     * @return true if the number is entered.
+     */
+    public boolean isNumber(String text) {
+        char[] charArr = text.toCharArray();
+        int countError = 0;
+        for (int i = 0; i < charArr.length; i++) {
+            if (!Character.isDigit(charArr[i])) {
+                countError++;
+            }
         }
-        return true;
+        return (countError == 0);
     }
 
     /**
      * Writes the number and all the guesses of each game of each board to the
-     * file
+     * file.
      */
     public void toFile() {
         // create the fileWriter here instead of the File - use ", true" to append
@@ -351,7 +345,7 @@ public class Gnum extends Application {
     }
 
     /**
-     * Clear records when the program runs again
+     * Clear records when the program runs again.
      *
      * @throws IOException
      */
@@ -361,62 +355,62 @@ public class Gnum extends Application {
     }
 
     /**
-     * Shows all the guesses in the current game
+     * Shows all the guesses in the current game.
      *
      * @param board Set the number of board /restartBtn
      * @param game Set the number of game /playAgnBtn
      */
-    public void toHistScreen(int board, int game) {
+    public void toHistoryScreen(int board, int game) {
         if (recordArr[board][game][0] > 0) {
-            hist1.setText("\t   # 1: " + String.valueOf(recordArr[board][game][0]));
+            history1.setText("\t   # 1: " + String.valueOf(recordArr[board][game][0]));
         }
         if (recordArr[board][game][1] > 0) {
-            hist2.setText("\t   # 2: " + String.valueOf(recordArr[board][game][1]));
+            history2.setText("\t   # 2: " + String.valueOf(recordArr[board][game][1]));
         }
         if (recordArr[board][game][2] > 0) {
-            hist3.setText("\t   # 3: " + String.valueOf(recordArr[board][game][2]));
+            history3.setText("\t   # 3: " + String.valueOf(recordArr[board][game][2]));
         }
         if (recordArr[board][game][3] > 0) {
-            hist4.setText("\t   # 4: " + String.valueOf(recordArr[board][game][3]));
+            history4.setText("\t   # 4: " + String.valueOf(recordArr[board][game][3]));
         }
         if (recordArr[board][game][4] > 0) {
-            hist5.setText("\t   # 5: " + String.valueOf(recordArr[board][game][4]));
+            history5.setText("\t   # 5: " + String.valueOf(recordArr[board][game][4]));
         }
         if (recordArr[board][game][5] > 0) {
-            hist6.setText("\t   # 6: " + String.valueOf(recordArr[board][game][5]));
+            history6.setText("\t   # 6: " + String.valueOf(recordArr[board][game][5]));
         }
         if (recordArr[board][game][6] > 0) {
-            hist7.setText("\t   # 7: " + String.valueOf(recordArr[board][game][6]));
+            history7.setText("\t   # 7: " + String.valueOf(recordArr[board][game][6]));
         }
         if (recordArr[board][game][7] > 0) {
-            hist8.setText("\t   # 8: " + String.valueOf(recordArr[board][game][7]));
+            history8.setText("\t   # 8: " + String.valueOf(recordArr[board][game][7]));
         }
         if (recordArr[board][game][8] > 0) {
-            hist9.setText("\t   # 9: " + String.valueOf(recordArr[board][game][8]));
+            history9.setText("\t   # 9: " + String.valueOf(recordArr[board][game][8]));
         }
         if (recordArr[board][game][9] > 0) {
-            hist10.setText("\t   #10: " + String.valueOf(recordArr[board][game][9]));
+            history10.setText("\t   #10: " + String.valueOf(recordArr[board][game][9]));
         }
     }
 
     /**
-     * Clears history on the screen
+     * Clears history on the screen.
      */
-    public void clearHistScreen() {
-        hist1.setText("");
-        hist2.setText("");
-        hist3.setText("");
-        hist4.setText("");
-        hist5.setText("");
-        hist6.setText("");
-        hist7.setText("");
-        hist8.setText("");
-        hist9.setText("");
-        hist10.setText("");
+    public void clearHistoryScreen() {
+        history1.setText("");
+        history2.setText("");
+        history3.setText("");
+        history4.setText("");
+        history5.setText("");
+        history6.setText("");
+        history7.setText("");
+        history8.setText("");
+        history9.setText("");
+        history10.setText("");
     }
 
     /**
-     * Interface settings
+     * Interface settings.
      */
     private void settings() { // layout settings
 
@@ -425,30 +419,30 @@ public class Gnum extends Application {
         gameField.getChildren().addAll(line1, line2, line3,
                 line4, inputTf, line6, key, hintBox);
 
-        // set history box
-        hintBox.getChildren().addAll(histBox, picture);
-        histBox.getChildren().addAll(histHead, hist1, hist2, hist3, hist4,
-                hist5, hist6, hist7, hist8, hist9, hist10);
-        histHead.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        hist1.setFont(Font.font("Arial", 18));
-        hist2.setFont(Font.font("Arial", 18));
-        hist3.setFont(Font.font("Arial", 18));
-        hist4.setFont(Font.font("Arial", 18));
-        hist5.setFont(Font.font("Arial", 18));
-        hist6.setFont(Font.font("Arial", 18));
-        hist7.setFont(Font.font("Arial", 18));
-        hist8.setFont(Font.font("Arial", 18));
-        hist9.setFont(Font.font("Arial", 18));
-        hist10.setFont(Font.font("Arial", 18));
+        // set historyory box
+        hintBox.getChildren().addAll(historyBox, picture);
+        historyBox.getChildren().addAll(historyHead, history1, history2, history3, history4,
+                history5, history6, history7, history8, history9, history10);
+        historyHead.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        history1.setFont(Font.font("Arial", 18));
+        history2.setFont(Font.font("Arial", 18));
+        history3.setFont(Font.font("Arial", 18));
+        history4.setFont(Font.font("Arial", 18));
+        history5.setFont(Font.font("Arial", 18));
+        history6.setFont(Font.font("Arial", 18));
+        history7.setFont(Font.font("Arial", 18));
+        history8.setFont(Font.font("Arial", 18));
+        history9.setFont(Font.font("Arial", 18));
+        history10.setFont(Font.font("Arial", 18));
 
-        picWon.setTranslateY(space * 4);
+        picWon.setTranslateY(SPACE * 4);
         picWon.setFitWidth(260);
         picWon.setFitHeight(216);
-        picLow.setTranslateY(space * 4);
+        picLow.setTranslateY(SPACE * 4);
         picLow.setFitWidth(238);
         picLow.setFitHeight(216);
         picLow.setRotate(180);
-        picHigh.setTranslateY(space * 4);
+        picHigh.setTranslateY(SPACE * 4);
         picHigh.setFitWidth(238);
         picHigh.setFitHeight(216);
         line1.setFont(Font.font("Arial", FontWeight.BOLD, 30));
@@ -475,7 +469,7 @@ public class Gnum extends Application {
     }
 
     /**
-     * @param args the command line arguments
+     * @param args the command line arguments.
      */
     public static void main(String[] args) {
         launch(args);

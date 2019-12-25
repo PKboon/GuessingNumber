@@ -1,19 +1,25 @@
 
-Board1 Game1: The number was 988
-Guess1: 4
-Guess2: 4
-Guess3: 4
-Guess4: 4
-Guess5: 4
-Guess6: 4
-Guess7: 4
-Guess8: 4
-Guess9: 4
-Guess10: 4
+Board1 Game1: The number was 480
+Guess1: 1000
+Guess2: 390
+Guess3: 500
+Guess4: 400
+Guess5: 450
+Guess6: 470
+Guess7: 480
 
-Board1 Game2: The number was 253
-Guess1: 4
-Guess2: 4
-Guess3: 4
-Guess4: 4
-Guess5: 4
+Board1 Game2: The number was 692
+Guess1: 500
+Guess2: 700
+Guess3: 600
+Guess4: 650
+Guess5: 680
+Guess6: 690
+Guess7: 699
+Guess8: 695
+Guess9: 694
+Guess10: 693
+
+Board1 Game3: The number was 248
+Guess1: 9
+Guess2: 248
