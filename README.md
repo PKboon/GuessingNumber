@@ -36,7 +36,7 @@ This program is written by Pikulkaew Boonpeng for Java Programming class by Prof
 
 
 
-#### When you enter letters.
+#### When you enter letters or out-of-range numbers, the color of "Guess Number from 1 to 1000" line will randomly change.
 
 ![Screen Shot 2019-12-25 at 3 23 43 PM](https://user-images.githubusercontent.com/51871643/71450344-58cc8a00-272e-11ea-94d8-5667c21bd8e9.png)
 
