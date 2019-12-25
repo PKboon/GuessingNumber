@@ -29,7 +29,7 @@ This program is written by Pikulkaew Boonpeng for Java Programming class by Prof
 
 
 
-#### When you lose. The best guess stays the same.
+#### When you lose, Best Guess stays the same.
 
 ![Screen Shot 2019-12-25 at 3 22 54 PM](https://user-images.githubusercontent.com/51871643/71450342-58cc8a00-272e-11ea-9307-e4535ca0acc7.png)
 
@@ -43,6 +43,6 @@ This program is written by Pikulkaew Boonpeng for Java Programming class by Prof
 
 
 
-#### When you break the record. The smaller number will be recorded.
+#### When you break the record, the smaller number will be recorded to Best Guess.
 
 ![Screen Shot 2019-12-25 at 3 24 15 PM](https://user-images.githubusercontent.com/51871643/71450345-58cc8a00-272e-11ea-861e-b14d7850b5f9.png)
