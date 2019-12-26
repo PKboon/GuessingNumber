@@ -79,7 +79,7 @@ public class GuessingNumber extends Application {
     // for gameEndText()
     private Label key = new Label(" ");
 
-    // hintBox contends picture and historyory
+    // hintBox contends picture and history
     private HBox hintBox = new HBox(SPACE * 10);
     // picture section
     private Label picture = new Label("");
@@ -87,7 +87,7 @@ public class GuessingNumber extends Application {
     private Image picArrow = new Image("http://pixelartmaker.com/art/0fc29bffe9ca6e5.png");
     private ImageView picLow = new ImageView(picArrow);
     private ImageView picHigh = new ImageView(picArrow);
-    // historyory section
+    // history section
     private VBox historyBox = new VBox(SPACE / 2);
     Label historyHead = new Label("\t  History: ");
     Label history1 = new Label("");
@@ -101,7 +101,7 @@ public class GuessingNumber extends Application {
     Label history9 = new Label("");
     Label history10 = new Label("");
 
-    // For file stuff and historyory
+    // For file stuff and history
     private final int ANS_MAX = 10;    // max amount of guess
     private final int GAME_MAX = 100;  // max amount of playAgnBtn
     private final int BOARD_MAX = 500; // max amount of restartBtn
@@ -166,7 +166,7 @@ public class GuessingNumber extends Application {
                 ans++;  // for recordArr
                 recordArr[board][game][ans - 1] = guess; // put guess in recordArr
                 toFile();   // put guess to file
-                toHistoryScreen(board, game);  // show historyory
+                toHistoryScreen(board, game);  // show history
 
                 // reset range line color when player get the number in [1,1000] 
                 line4.setTextFill(Color.BLUEVIOLET);
@@ -419,7 +419,7 @@ public class GuessingNumber extends Application {
         gameField.getChildren().addAll(line1, line2, line3,
                 line4, inputTf, line6, key, hintBox);
 
-        // set historyory box
+        // set history box
         hintBox.getChildren().addAll(historyBox, picture);
         historyBox.getChildren().addAll(historyHead, history1, history2, history3, history4,
                 history5, history6, history7, history8, history9, history10);
